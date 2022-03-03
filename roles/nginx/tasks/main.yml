@@ -1,0 +1,18 @@
+---
+# tasks file for /etc/ansible/roles/nginx
+- name: Yum install epel
+  yum:
+    name: epel-release.noarch 
+    state: present
+
+- name: Yum install nginx 
+  yum:
+    name: nginx
+    state: present
+
+- name: Start nginx
+  service:
+    name: nginx
+    state: restarted
+    enabled: yes
+

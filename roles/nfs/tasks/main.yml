@@ -1,0 +1,17 @@
+---
+# tasks file for /etc/ansible/roles/nfs
+- name: Install nfs pkg
+  yum:
+    name: nfs-utils,rpcbind
+    state: latest
+
+- name: Confiure file
+  shell: chmod -Rf 777 /nfs && echo "/nfs 192.168.174.0/24(rw,sync,no_root_squash)" > /etc/exports
+
+- name: Start nfs server
+  service:
+    name: "{{ item }}"
+    state: restarted
+  loop:
+    - rpcbind
+    - nfs-server

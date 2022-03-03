@@ -1,0 +1,11 @@
+---
+# tasks file for /etc/ansible/roles/mariadb
+- name: Yum install mariadb
+  yum:
+    name: mariadb-server
+    state: present
+
+- name: Start mariadb
+  service:
+    name: mariadb
+    state: started

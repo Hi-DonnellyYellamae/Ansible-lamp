@@ -1,0 +1,39 @@
+---
+# tasks file for /etc/ansible/roles/lvm_create
+- name: Create partion
+  parted:
+    device: /dev/sdb
+    number: 1
+    flags: [ lvm ]
+    state: present
+    part_start: 1MiB
+    part_end: 2GiB
+
+- name: Create vg
+  lvg:
+    vg: vg-nfs
+    pvs: /dev/sdb1
+
+- name: Create lvm 1G
+  lvol:
+    vg: vg-nfs
+    lv: lv-nfs
+    size: 1G
+
+- name: Format lv-nfs
+  filesystem:
+    fstype: ext4
+    dev: /dev/vg-nfs/lv-nfs
+
+- name: Mkdir nfs dir
+  file:
+    path: /nfs
+    state: directory
+
+- name: Mount lvm
+  mount:
+    path: /nfs
+    src: /dev/vg-nfs/lv-nfs
+    fstype: ext4
+    state: mounted
+    opts: noatime

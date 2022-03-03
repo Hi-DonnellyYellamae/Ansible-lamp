@@ -1,0 +1,14 @@
+---
+# tasks file for /etc/ansible/roles/apache
+- name: Install lapm environment
+  yum:
+    name: httpd,php-fpm,php-mysql,mod_php
+    state: present
+- name: Start httpd
+  service:
+    name: httpd
+    state: started
+- name: Start php-fpm
+  service:
+    name: php-fpm
+    state: started

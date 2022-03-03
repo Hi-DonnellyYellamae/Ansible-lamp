@@ -1,0 +1,13 @@
+---
+# tasks file for /etc/ansible/roles/apache_mount_nfs
+- name: Install nfs pkg for client tools
+  yum: 
+    name: nfs-utils
+    state: present
+
+- name: Mount nfs
+  mount:
+    src: server6:/nfs
+    path: /var/www/html
+    fstype: nfs
+    state: mounted

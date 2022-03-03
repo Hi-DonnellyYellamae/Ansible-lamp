@@ -1,0 +1,18 @@
+---
+# tasks file for /etc/ansible/roles/ali_yum_repo
+- name: Find files in yum.repos.d/*
+  find:
+    paths: /etc/yum.repos.d/
+    patterns: '*'
+  register: file_to_delete
+
+- name: Remove original yum.repos.d/*
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: "{{ file_to_delete.files }}"
+
+- name: Copy aliyun yum.repo to all nodes
+  copy:
+    src: yum.repo
+    dest: /etc/yum.repos.d/
