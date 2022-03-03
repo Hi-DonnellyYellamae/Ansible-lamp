@@ -1,0 +1,4 @@
+- name: Create lvm for bfs
+  hosts: server6
+  roles:
+  - lvm_create

@@ -1,0 +1,6 @@
+- name: Configure nfs server
+  hosts: server6
+  remote_user: root
+
+  roles:
+  - nfs

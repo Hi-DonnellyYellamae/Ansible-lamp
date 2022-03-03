@@ -1,0 +1,6 @@
+- name: Update all nodes yum.repo file
+  hosts: all_hostname
+  remote_user: root
+
+  roles:
+  - ali_yum_repo

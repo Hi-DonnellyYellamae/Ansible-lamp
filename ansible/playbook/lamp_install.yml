@@ -1,0 +1,5 @@
+- name: Prepare lamp
+  hosts: server3,server4
+
+  roles:
+  - apache
